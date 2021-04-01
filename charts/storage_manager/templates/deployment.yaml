@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.global.manager }}
+  labels:
+    app: {{ .Values.global.manager }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.global.manager }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.global.manager }}
+    spec:
+      containers:
+      - name: {{ .Values.global.manager }}
+        imagePullPolicy: {{ .Values.image.imagePullPolicy }}
+        image: {{ .Values.image.image }}
+        resources:
+          requests:
+            memory: {{ .Values.requests.serviceMemory }}
+            cpu: {{ .Values.requests.serviceCpu }}
+        ports:
+        - name: http-manager
+          containerPort: 5567
+          protocol: TCP
+        - name: https-manager
+          containerPort: 443
+          protocol: TCP
+        envFrom:
+        - configMapRef:
+            name: storage-manager-config
+      - name: mongo
+        imagePullPolicy: {{ .Values.image.imagePullPolicy }}
+        image: mongo
+        resources:
+          requests:
+            memory: {{ .Values.requests.dbMemory }}
+            cpu: {{ .Values.requests.dbCpu }}
+        ports:
+        - name: http-rp
+          containerPort: 27017
+          protocol: TCP
+        envFrom:
+        - configMapRef:
+            name: storage-manager-config
+        volumeMounts:
+        - mountPath: /data/db/
+          subPath: storage-manager/data/db
+          name: {{ .Values.volumeClaim.name }}
+      hostAliases:
+      - ip: {{ .Values.global.host }}
+        hostnames:
+        - {{ .Values.global.ep }}
+      volumes:
+        - name: {{ .Values.volumeClaim.name }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.volumeClaim.name }}

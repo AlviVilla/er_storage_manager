@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.global.manager }}
+  labels:
+    app: {{ .Values.global.manager }}
+spec:
+  type: NodePort
+  ports:
+  - port: 5567
+    name: http-manager
+    targetPort: 5567
+    protocol: TCP
+    nodePort: 31708
+  - port: 1025
+    name: https-manager
+    targetPort: 443
+    protocol: TCP
+  selector:
+    app: {{ .Values.global.manager }}
