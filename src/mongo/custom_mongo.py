@@ -10,22 +10,78 @@ class Mongo_Handler:
         self.__dict__.update(kwargs)
         
         self.myclient = pymongo.MongoClient('localhost', 27017)
-        self.db = self.myclient["article_db"]
+        self.db = self.myclient["entorno_rural"]
 
-    def create_json(self, name: str, description:str, scopes: list):
+    def create_json(self, data):
         '''
         Creates a template of policy to insert in the database
         '''
-        j= {
-            "name" : name,
-            "description" : description,
-            "scopes" : scopes
-        }
-        y = json.dumps(j)
+        y = json.dumps(data)
         return j
 
+    def insert_document(self, data):
+        '''
+            Generates a document with json format (name: str, description: str, id: str,cfg: dict, scopes:list ): 
+                -NAME: Name generic for the policy
+                -DESCRIPTION: Custom description for the policy pourpose
+                -ID: Unique ID for the policy
+                -POLICY_CFG: Custom rules for the policy configuration
+                -SCOPES: List of scopes for the policy
+            Check the existence of the policy to be registered on the database
+            If alredy registered will update the values
+            If not registered will add it and return the query result
+        '''
+        dblist = self.myclient.list_database_names()
+        # Check if the database alredy exists
+        if "entorno_rural" in dblist:
+            col = self.db['entorno_rural']
+            myres = self.create_json(data)
+            x=None
+            if self.exists(name=name, col=col):
+                print('alredy exists')
+                return None
+            # Add the resource since it doesn't exist on the database
+            else:
+                x = col.insert_one(myres)
+                return 'New Article with ID: ' + str(x.inserted_id)
+        else:
+            col = self.db['entorno_rural']
+            myres = self.create_json(data)
+            x = col.insert_one(myres)
+            return 'New Document with ID: ' + str(x.inserted_id)
+
+    def delete_document(self, _id):
+        '''
+            Check the existence of the resource inside the database
+            And deletes the document
+        '''
+        if self.exists(_id=_id):
+            col = self.db['entorno_rural']
+            myId=self.parse_id(_id)
+            myquery = { "_id": myId }
+            a= col.delete_one(myquery)
+    
+    def update_document(self, _id, dict_data):
+        '''
+        Find the resource in the database by id, add or modify the changed values for the resource.
+        '''
+        col = self.db['entorno_rural']
+        myid = self.parse_id(_id)
+        if self.exists(_id=_id):
+            myquery= {'_id': myid}
+            new_val= {"$set": dict_data}
+            x = col.update_many(myquery, new_val)
+            if x.modified_count == 1:
+                return 'Updated'
+            elif x.modified_count == 0:
+                return 'No changes made'
+            return str(x.modified_count)
+        else:
+            return print('Can not update the policy, it does not exist')
+             
+
     def get_id_from_name(self, name:str):
-        col= self.db['policies']
+        col= self.db['entorno_rural']
         myquery={'name': name}
         found=col.find_one(myquery)
         if found:
@@ -44,28 +100,23 @@ class Mongo_Handler:
             myId = ObjectId(_id)
         return myId
 
-    def get_policy_from_resource_id(self,resource_id):
+    def get_all(self):
         '''
-            Finds the policy, attached to a resource by a resource_id given
-            Returns the policy in json format
-            Returns a list of policies to the resource_id asociado
+            Finds all documents
         '''
-        result= []
-        col= self.db['policies']
-        myquery = { "config.resource_id": resource_id }
+        col= self.db['entorno_rural']
+        myquery= {}
         found=col.find(myquery)
         if found:
-            for i in found:
-                result.append(i)
-            return result
+            return found
         else: return None
-
-    def get_article_from_id(self, _id):
+    
+    def get_document_from_id(self, _id):
         '''
             Finds the article by its id
             Returns the policy in json format
         '''
-        col= self.db['articles']
+        col= self.db['entorno_rural']
         myId=self.parse_id(_id)
         myquery= {'_id': myId}
         found=col.find_one(myquery)
@@ -82,80 +133,12 @@ class Mongo_Handler:
                 -name:
             Return boolean result
         ''' 
-        myquery = { "name": name }
+        if _id:
+            myquery = {"_id": _id}
+        else:
+            myquery = { "name": name }
+
         if col.find_one(myquery): return True
         else: return False
        
             
-    def verify_uid(self, policy_id, uid):
-        col = self.db['policies']
-        try:
-            myquery = {"_id": ObjectId(policy_id), "ownership_id": uid }
-            a= col.find_one(myquery)
-            if a:                
-                return True
-            else: return False
-        except:
-            print('no policy with that UID associated')
-            return False
-
-    def insert_article(self, name:str, description:str, scopes: list):
-        '''
-            Generates a document with json format (name: str, description: str, id: str,cfg: dict, scopes:list ): 
-                -NAME: Name generic for the policy
-                -DESCRIPTION: Custom description for the policy pourpose
-                -ID: Unique ID for the policy
-                -POLICY_CFG: Custom rules for the policy configuration
-                -SCOPES: List of scopes for the policy
-            Check the existence of the policy to be registered on the database
-            If alredy registered will update the values
-            If not registered will add it and return the query result
-        '''
-        dblist = self.myclient.list_database_names()
-        # Check if the database alredy exists
-        if "article_db" in dblist:
-            col = self.db['articles']
-            myres = self.create_json(name,description,scopes)
-            x=None
-            if self.exists(name=name, col=col):
-                print('alredy exists')
-                return None
-            # Add the resource since it doesn't exist on the database
-            else:
-                x = col.insert_one(myres)
-                return 'New Article with ID: ' + str(x.inserted_id)
-        else:
-            col = self.db['articles']
-            myres = self.create_json(name,description, scopes)
-            x = col.insert_one(myres)
-            return 'New Article with ID: ' + str(x.inserted_id)
-
-    def delete_policy(self, _id):
-        '''
-            Check the existence of the resource inside the database
-            And deletes the document
-        '''
-        if self.policy_exists(_id=_id):
-            col = self.db['policies']
-            myId=self.parse_id(_id)
-            myquery = { "_id": myId }
-            a= col.delete_one(myquery)
-    
-    def update_policy(self, _id, dict_data):
-        '''
-        Find the resource in the database by id, add or modify the changed values for the resource.
-        '''
-        col = self.db['policies']
-        myid = self.parse_id(_id)
-        if self.policy_exists(_id=_id):
-            myquery= {'_id': myid}
-            new_val= {"$set": dict_data}
-            x = col.update_many(myquery, new_val)
-            if x.modified_count == 1:
-                return 'Updated'
-            elif x.modified_count == 0:
-                return 'No changes made'
-            return str(x.modified_count)
-        else:
-            return print('Can not update the policy, it does not exist')
-             

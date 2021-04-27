@@ -1,0 +1,22 @@
+[
+    {
+    "name": "horreo",
+    "description": "Descripcion que quieras",
+    "type": "term",
+    "tags": ["arquitectura", "agricultura"],
+    "usage": "medio uso",
+    "location": ["Prioro", "Tejerina"],
+    "synonyms":[],
+    "variants":[]
+    },
+    {
+    "name": "Las fresas en Leon",
+    "description": "Descripcion que quieras",
+    "type": "article",
+    "tags": ["ganaderia", "tradiciones"],
+    "location": ["Leon"],
+    "author": "Vicente",
+    "link": "",
+    "resources": []
+    }
+]
