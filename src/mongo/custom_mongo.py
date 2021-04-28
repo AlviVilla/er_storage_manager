@@ -14,20 +14,16 @@ class Mongo_Handler:
 
     def create_json(self, data):
         '''
-        Creates a template of policy to insert in the database
+        Creates a template of document to insert in the database
         '''
         y = json.dumps(data)
-        return j
+        config = json.load(dict(y))
+        return config
 
     def insert_document(self, data):
         '''
-            Generates a document with json format (name: str, description: str, id: str,cfg: dict, scopes:list ): 
-                -NAME: Name generic for the policy
-                -DESCRIPTION: Custom description for the policy pourpose
-                -ID: Unique ID for the policy
-                -POLICY_CFG: Custom rules for the policy configuration
-                -SCOPES: List of scopes for the policy
-            Check the existence of the policy to be registered on the database
+            Generates a document with json format: 
+            Check the existence of the document to be registered on the database
             If alredy registered will update the values
             If not registered will add it and return the query result
         '''
@@ -35,20 +31,43 @@ class Mongo_Handler:
         # Check if the database alredy exists
         if "entorno_rural" in dblist:
             col = self.db['entorno_rural']
-            myres = self.create_json(data)
-            x=None
-            if self.exists(name=name, col=col):
-                print('alredy exists')
-                return None
-            # Add the resource since it doesn't exist on the database
-            else:
-                x = col.insert_one(myres)
-                return 'New Article with ID: ' + str(x.inserted_id)
+            if isinstance(data['default_resources'], (dict)):
+                myres = data['default_resources']
+                x=None
+                if self.exists(name=myres['name'], col=col):
+                    print('alredy exists')
+                    return None
+                # Add the resource since it doesn't exist on the database
+                else:
+                    x = col.insert_one(myres)
+                    return 'New Doc with ID: ' + str(x)
+            elif isinstance(data['default_resources'],(list)):
+                for i in data['default_resources']:
+                    x=None
+                    myres = i
+                    if self.exists(name=myres['name'], col=col):
+                        print('alredy exists')
+                        return None
+                # Add the resource since it doesn't exist on the database
+                    else:
+                        x = col.insert_one(myres)
         else:
             col = self.db['entorno_rural']
-            myres = self.create_json(data)
-            x = col.insert_one(myres)
-            return 'New Document with ID: ' + str(x.inserted_id)
+            x=None
+            if isinstance(data['default_resources'], (dict)):
+                myres = data['default_resources']
+                x = col.insert_one(myres)
+            elif isinstance(data['default_resources'],(list)):
+                for i in data['default_resources']:
+                    myres = i
+                    x=None
+                    if self.exists(name=myres['name'], col=col):
+                        print('alredy exists')
+                        return None
+                # Add the resource since it doesn't exist on the database
+                    else:
+                        x = col.insert_one(myres)
+            return 'New Document with ID: ' + str(x)
 
     def delete_document(self, _id):
         '''
@@ -106,7 +125,10 @@ class Mongo_Handler:
         '''
         col= self.db['entorno_rural']
         myquery= {}
-        found=col.find(myquery)
+        found=list(col.find())
+        file = open("alvl.txt", "w") 
+        file.write(str(found)) 
+        file.close() 
         if found:
             return found
         else: return None

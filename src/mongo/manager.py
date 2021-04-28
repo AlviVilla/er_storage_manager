@@ -1,7 +1,7 @@
 import json
 
 from flask import Blueprint, request, Response
-
+import logging
 from mongo.custom_mongo import Mongo_Handler
 
 def mongo_manager_bp():
@@ -15,19 +15,17 @@ def mongo_manager_bp():
         Mandatory parameters:
     
         '''
-        print("Processing " + request.method)
         response = Response()
         mongo = Mongo_Handler()
-        if request.method == "GET":
-            if request.data:
-                data = request.get_json()
-                list_of_docs={}
-                a= mongo.get_all()
-                list_of_docs['docs'] = a
-                for n in list_of_docs['docs']:
-                    if '_id' in n:
-                        n['_id'] = str(n['_id'])
-                return json.dumps(list_of_docs)
+        if request.method == "GET":   
+            list_of_docs={}
+            a= mongo.get_all()
+
+            list_of_docs['docs'] = a
+            for n in list_of_docs['docs']:
+                if '_id' in n:
+                    n['_id'] = str(n['_id'])
+            return json.dumps(list_of_docs)
         else:
             if request.is_json:
                 data = request.get_json()

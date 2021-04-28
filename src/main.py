@@ -23,8 +23,10 @@ app.secret_key = ''.join(choice(ascii_lowercase) for i in range(30)) # Random ke
 # Register api blueprints (module endpoints)
 bp, mongo = mongo_manager_bp()
 app.register_blueprint(bp)
+with open('config/test.json') as json_file:
+    data = json.load(json_file)
+    mongo.insert_document(data)
 
-mongo.insert_document(name="First Article", description="This is an article, first in its species", scopes=['Article', 'Document'])
 app.run(
     debug=g_config["debug_mode"],
     port=g_config["port"],
