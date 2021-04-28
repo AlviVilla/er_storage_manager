@@ -47,8 +47,8 @@ spec:
         - configMapRef:
             name: storage-manager-config
         volumeMounts:
-        - mountPath: /data/db/
-          subPath: storage-manager/data/db
+        - mountPath: /data/db
+          subPath: storage-manager/db
           name: {{ .Values.volumeClaim.name }}
       hostAliases:
       - ip: {{ .Values.global.host }}

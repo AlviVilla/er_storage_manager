@@ -10,5 +10,5 @@ spec:
   accessModes:
     - {{ .Values.persistence.accessModes }}
   hostPath:
-    path: "/data/"
+    path: "/data"
     type: {{ .Values.persistence.type }}

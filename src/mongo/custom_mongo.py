@@ -31,8 +31,8 @@ class Mongo_Handler:
         # Check if the database alredy exists
         if "entorno_rural" in dblist:
             col = self.db['entorno_rural']
-            if isinstance(data['default_resources'], (dict)):
-                myres = data['default_resources']
+            if isinstance(data['er_docs'], (dict)):
+                myres = data['er_docs']
                 x=None
                 if self.exists(name=myres['name'], col=col):
                     print('alredy exists')
@@ -41,8 +41,8 @@ class Mongo_Handler:
                 else:
                     x = col.insert_one(myres)
                     return 'New Doc with ID: ' + str(x)
-            elif isinstance(data['default_resources'],(list)):
-                for i in data['default_resources']:
+            elif isinstance(data['er_docs'],(list)):
+                for i in data['er_docs']:
                     x=None
                     myres = i
                     if self.exists(name=myres['name'], col=col):
@@ -54,11 +54,11 @@ class Mongo_Handler:
         else:
             col = self.db['entorno_rural']
             x=None
-            if isinstance(data['default_resources'], (dict)):
-                myres = data['default_resources']
+            if isinstance(data['er_docs'], (dict)):
+                myres = data['er_docs']
                 x = col.insert_one(myres)
-            elif isinstance(data['default_resources'],(list)):
-                for i in data['default_resources']:
+            elif isinstance(data['er_docs'],(list)):
+                for i in data['er_docs']:
                     myres = i
                     x=None
                     if self.exists(name=myres['name'], col=col):
