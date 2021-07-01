@@ -1,7 +1,5 @@
 import json
-
 from flask import Blueprint, request, Response
-import logging
 from mongo.custom_mongo import Mongo_Handler
 
 def mongo_manager_bp():
@@ -32,8 +30,8 @@ def mongo_manager_bp():
                 if data.get("name"):
                     return mongo.insert_document(data)
                 else:
-                    response.status_code = 500
-                    response.headers["Error"] = "Invalid data or incorrect policy name passed on URL called for policy creation!"
+                    response.status_code = 400
+                    response.headers["Error"] = "Bad Request: Invalid data or incorrect format!"
                     return response
 
             
@@ -59,7 +57,7 @@ def mongo_manager_bp():
                     return mongo.update_document(doc_id, data)
                 else:
                     response.status_code = 500
-                    response.headers["Error"] = "Invalid data or incorrect policy name passed on URL called for policy creation!"
+                    response.headers["Error"] = "Invalid data or incorrect format!"
                     return response
 
         elif request.method == "GET":
@@ -67,14 +65,16 @@ def mongo_manager_bp():
             a= mongo.get_document_from_id(doc_id)
             a['_id'] = str(a['_id'])
             return json.dumps(a)
-        #Deletes a policy by its _id
+        #Deletes a doc by its _id
         elif request.method == "DELETE":
             mongo.delete_document(doc_id)
             response.status_code = 204
             response.text = 'DELETED'
             return response
         else:
-            return ''
+            response.status_code = 500
+            response.headers["Error"] = "Method not allowed"
+            return response
 
 
     return mongo_manager_bp, mongo

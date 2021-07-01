@@ -96,7 +96,7 @@ class Mongo_Handler:
                 return 'No changes made'
             return str(x.modified_count)
         else:
-            return print('Can not update the policy, it does not exist')
+            return print('Can not update the file, it does not exist')
              
 
     def get_id_from_name(self, name:str):
@@ -126,9 +126,6 @@ class Mongo_Handler:
         col= self.db['entorno_rural']
         myquery= {}
         found=list(col.find())
-        file = open("alvl.txt", "w") 
-        file.write(str(found)) 
-        file.close() 
         if found:
             return found
         else: return None

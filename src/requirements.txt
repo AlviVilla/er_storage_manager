@@ -1,24 +1,4 @@
-# EXAMPLE REQUIREMENTS - PLEASE REPLACE WITH REAL ONES
-attrs==19.3.0
-importlib-metadata==1.5.0
-more-itertools==8.2.0
-packaging==20.3
-pluggy==0.13.1
-py==1.8.1
-pyparsing==2.4.6
-pytest==5.3.5
-six==1.14.0
-wcwidth==0.1.8
-zipp==3.1.0
-requests
+
 pymongo
 Flask==1.1.2
-mock
-jsonschema
-WellKnownHandler==0.2.0
-eoepca-scim==2.7.4
-eoepca-uma==0.2.3
-eoepca-oidc==0.0.2
-urllib3==1.25.9
-pyjwkest==1.4.2
-pycrypto==2.6.1
+
