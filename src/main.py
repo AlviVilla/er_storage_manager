@@ -16,7 +16,7 @@ app.secret_key = ''.join(choice(ascii_lowercase) for i in range(30)) # Random ke
 # Register api blueprints (module endpoints)
 bp, mongo = mongo_manager_bp()
 app.register_blueprint(bp)
-with open('config/test.json') as json_file:
+with open('config/base.json') as json_file:
     data = json.load(json_file)
     mongo.insert_document(data)
 
