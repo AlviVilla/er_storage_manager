@@ -82,7 +82,7 @@ Distributed under the Apache-2.0 License. See `LICENSE` for more information.
 
 ## Contact
 
-[EOEPCA mailbox](eoepca.systemteam@telespazio.com)
+[eRural mailbox](alvivilla9@gmail.com)
 
 Project Link: [https://github.com/AlviVilla/er_storage_manager](https://github.com/AlviVilla/er_storage_manager)
 
