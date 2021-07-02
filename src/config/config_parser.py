@@ -1,6 +1,8 @@
 from json import load, dump
+import os
 
-CONFIG_FILE = "config/config.json"
+dirname = os.path.dirname(__file__)
+CONFIG_FILE = os.path.join(dirname, "/config/config.json")
 
 def load_config() -> dict:
     """
