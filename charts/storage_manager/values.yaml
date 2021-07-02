@@ -1,26 +1,25 @@
 # Default values for pdp-engine.
 
 global:
-  namespace: default
   ep: localhost
-  domain:  http://localhost
   manager: storage-manager
-  auth_server_url: http://localhost
-  prefix: /
   host: 0.0.0.0
   port: 5567
-  check_ssl_certs: "'false'"
-  debug_mode: "'true'"
+  debugMode: "'true'"
 
-readinessProbe:
-  initialDelaySeconds: 150
-  periodSeconds: 90
-livenessProbe:
-  initialDelaySeconds: 150
-  periodSeconds: 90
+ports:
+  http-manager:
+    port: 5567
+    targetPort: 5567
+    type: TCP
+  https-manager:
+    port: 1025
+    targetPort: 443
+    type: TCP
 
-# limits:
-#   memory: 600Mi
+ingress:
+  path: /storage-manager
+
 requests:
   serviceCpu: 4m
   serviceMemory: 70Mi
@@ -28,16 +27,12 @@ requests:
   dbMemory: 70Mi
 
 image: 
-  statefulSetReplicas: 1
   imagePullPolicy: Never
   image: alvi:latest
 persistence: 
   accessModes: ReadWriteMany
   dbStorageSize: 5Gi
   type: DirectoryOrCreate
-
-config:
-  enabled: true
 
 # VolumeClaim values
 volumeClaim:

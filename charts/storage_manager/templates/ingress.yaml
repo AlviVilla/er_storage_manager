@@ -1,16 +1,17 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: storage-manager-ingress
+  name: {{ .Values.global.manager }}-ingress
   annotations:
+    kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   rules:
-  - host: localhost
+  - host: {{ .Values.global.ep }}
     http:
       paths:
-      - path: /storage-manager(/|$)(.*)
+      - path: {{ .Values.ingress.path }}(/|$)(.*)
         backend:
-          serviceName: storage-manager 
-          servicePort: 5567
+          serviceName: {{ .Values.global.manager }} 
+          servicePort: {{ .Values.global.port }} 

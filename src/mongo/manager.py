@@ -18,7 +18,6 @@ def mongo_manager_bp():
         if request.method == "GET":   
             list_of_docs={}
             a= mongo.get_all()
-
             list_of_docs['docs'] = a
             for n in list_of_docs['docs']:
                 if '_id' in n:
