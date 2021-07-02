@@ -9,7 +9,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/AlviVilla/er_storage_manager">
-    <img src="images/logo.png" alt="Logo" width="100" height="80">
+    <img src="images/Horreo2.png" alt="Logo" width="100" height="80">
   </a>
 
   <h3 align="center">Storage Manager</h3>
