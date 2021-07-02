@@ -1,8 +1,9 @@
 from json import load, dump
 import os
+import logging
+dir_path = os.path.dirname(os.path.realpath(__file__))
 
-dirname = os.path.dirname(__file__)
-CONFIG_FILE = os.path.join(dirname, "/config/config.json")
+CONFIG_FILE = os.path.join(dir_path, "/config/config.json")
 
 def load_config() -> dict:
     """
@@ -11,6 +12,7 @@ def load_config() -> dict:
     Returns: dict
     """
     config = {}
+    print(CONFIG_FILE)
     with open(CONFIG_FILE) as j:
         config = load(j)
 
