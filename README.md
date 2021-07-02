@@ -57,11 +57,11 @@ Otherwise checkout the file to identify which values you will need to it work: (
 
 ### Usage, Deployment and Configuration
 
-The full getting started guide starts in the Wiki home page: ()
+The full getting started guide starts in the Wiki home page: (https://github.com/AlviVilla/er_storage_manager/wiki)
 
 ## Roadmap
 
-See the [open issues](https://github.com/EOEPCA/um-pdp-engine/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/AlviVilla/er_storage_manager/issues) for a list of proposed features (and known issues).
 
 
 ## Contributing
@@ -84,21 +84,21 @@ Distributed under the Apache-2.0 License. See `LICENSE` for more information.
 
 [EOEPCA mailbox](eoepca.systemteam@telespazio.com)
 
-Project Link: [https://github.com/EOEPCA/um-pdp-engine](https://github.com/EOEPCA/um-pdp-engine)
+Project Link: [https://github.com/AlviVilla/er_storage_manager](https://github.com/AlviVilla/er_storage_manager)
 
 ## Acknowledgements
 
 - README.md is based on [this template](https://github.com/othneildrew/Best-README-Template) by [Othneil Drew](https://github.com/othneildrew).
 
 
-[contributors-shield]: https://img.shields.io/github/contributors/EOEPCA/um-pdp-engine.svg?style=flat-square
-[contributors-url]: https://github.com/EOEPCA/um-pdp-engine/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/EOEPCA/um-pdp-engine.svg?style=flat-square
-[forks-url]: https://github.com/EOEPCA/um-pdp-engine/network/members
-[stars-shield]: https://img.shields.io/github/stars/EOEPCA/um-pdp-engine.svg?style=flat-square
-[stars-url]: https://github.com/EOEPCA/um-pdp-engine/stargazers
-[issues-shield]: https://img.shields.io/github/issues/EOEPCA/um-pdp-engine.svg?style=flat-square
-[issues-url]: https://github.com/EOEPCA/um-pdp-engine/issues
-[license-shield]: https://img.shields.io/github/license/EOEPCA/um-pdp-engine.svg?style=flat-square
-[license-url]: https://github.com/EOEPCA/um-pdp-engine/blob/master/LICENSE
-[build-shield]: https://www.travis-ci.com/EOEPCA/um-pdp-engine.svg?branch=master
+[contributors-shield]: https://img.shields.io/github/contributors/AlviVilla/er_storage_manager.svg?style=flat-square
+[contributors-url]: https://github.com/AlviVilla/er_storage_manager/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/AlviVilla/er_storage_manager.svg?style=flat-square
+[forks-url]: https://github.com/AlviVilla/er_storage_manager/network/members
+[stars-shield]: https://img.shields.io/github/stars/AlviVilla/er_storage_manager.svg?style=flat-square
+[stars-url]: https://github.com/AlviVilla/er_storage_manager/stargazers
+[issues-shield]: https://img.shields.io/github/issues/AlviVilla/er_storage_manager.svg?style=flat-square
+[issues-url]: https://github.com/AlviVilla/er_storage_manager/issues
+[license-shield]: https://img.shields.io/github/license/AlviVilla/er_storage_manager.svg?style=flat-square
+[license-url]: https://github.com/AlviVilla/er_storage_manager/blob/master/LICENSE
+[build-shield]: https://www.travis-ci.com/AlviVilla/er_storage_manager.svg?branch=master
