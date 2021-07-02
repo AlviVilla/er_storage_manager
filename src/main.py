@@ -5,6 +5,7 @@ from string import ascii_lowercase
 from flask import Flask
 from config import config_parser
 from mongo.manager import mongo_manager_bp
+import os
 
 g_config = config_parser.load_config()
 
@@ -16,7 +17,12 @@ app.secret_key = ''.join(choice(ascii_lowercase) for i in range(30)) # Random ke
 # Register api blueprints (module endpoints)
 bp, mongo = mongo_manager_bp()
 app.register_blueprint(bp)
-with open('config/base.json') as json_file:
+
+# Register the first database bulk
+
+dir_path = os.path.dirname(os.path.realpath(__file__))
+path= os.path.join(dir_path, 'config/base.json')
+with open(path) as json_file:
     data = json.load(json_file)
     mongo.insert_document(data)
 
