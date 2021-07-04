@@ -6,22 +6,60 @@ import logging
 
 CONFIG_FILE = "config.json"
 
-def load_config() -> dict:
+
+def load_config(path: str) -> dict:
+
     """
     Parses and returns the config file
 
     Returns: dict
     """
     config = {}
-    dir_path = os.path.dirname(os.path.realpath(__file__))
-    path= os.path.join(dir_path, CONFIG_FILE)
     with open(path) as j:
         config = load(j)
 
     return config
 
+def get_config():
 
-def save_config(data: dict):
+    """
+    Loads entire configuration onto memory
+    """
+    env_vars = [
+    "HOST",
+    "PORT",
+    "PREFIX",
+    "DEBUG_MODE"]
+
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    path= os.path.join(dir_path, CONFIG_FILE)
+
+    use_env_var = True
+
+    for env_var in env_vars:
+        if env_var not in os.environ:
+            use_env_var = False
+
+    g_config = {}
+    # Global config objects
+    if use_env_var is False:
+        g_config = load_config(path)
+    else:
+        for env_var in env_vars:
+            if "true" in os.environ[env_var].replace('"', ''):
+                g_config[env_var_config.lower()] = True
+            elif "false" in os.environ[env_var].replace('"', ''):
+                g_config[env_var_config.lower()] = False
+            else:
+                g_config[env_var_config.lower()] = os.environ[env_var].replace('"', '')
+
+    save_config(path, g_config)
+    return g_config
+
+    
+
+
+def save_config(path: str, data: dict):
     """
     Saves updated config file
     """

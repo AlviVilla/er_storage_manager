@@ -7,7 +7,8 @@ from config import config_parser
 from mongo.manager import mongo_manager_bp
 import os
 
-g_config = config_parser.load_config()
+
+g_config = config_parser.get_config()
 
 # Global config objects
 
