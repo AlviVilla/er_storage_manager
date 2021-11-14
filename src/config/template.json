@@ -1,10 +1,23 @@
 {
-    
-    "name": "",
-    "description": "",
-    "tags": [],
-    "type": [],
-    "location": [],
-    "media": []
+    "term":  {
+        "name": "",
+        "description": "",
+        "type": "",
+        "tags": [],
+        "usage": "",
+        "location": [],
+        "resources" : [],
+        "variants":[],
+        "synonyms":[]
+    },
+    "article": {
+        
+    },
+    "links": {
+
+    },
+    "references":{
+
+    }
 
 }
