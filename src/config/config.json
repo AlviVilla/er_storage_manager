@@ -1,1 +1,7 @@
-{"host": "0.0.0.0", "port": "5567", "debug_mode": true}
+{
+    "host": "0.0.0.0",
+    "port": "5567", 
+    "debug_mode": true,
+    "tag_list": ["Costumbres","Vestimenta","Recetas","Postres", "Utensilios", "Juegos", "Religion", "Eventos", "Guisos", "Agricultura", "Folclore", "Fiestas", "Cuentos", "Arquitectura", "Ganaderia", "Sociedad", "Abastecimiento", "Pesca"]
+    }
+

@@ -6,3 +6,4 @@ data:
   HOST: {{ .Values.global.host | quote }}
   PORT: {{ .Values.global.port | quote }}
   DEBUG_MODE: {{ .Values.global.debugMode | quote }}
+  TAG_LIST: {{ .Values.configMap.tagList  | indent 4  }}

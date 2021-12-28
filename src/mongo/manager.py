@@ -1,6 +1,9 @@
 import json
 from flask import Blueprint, request, Response
 from mongo.custom_mongo import Mongo_Handler
+from config import config_parser
+g_config = config_parser.get_config()
+
 
 def mongo_manager_bp():
     mongo_manager_bp = Blueprint('mongo_manager_bp', __name__)
@@ -74,6 +77,24 @@ def mongo_manager_bp():
             response.status_code = 500
             response.headers["Error"] = "Method not allowed"
             return response
+
+    @mongo_manager_bp.route("/tags/", methods=["GET"])
+    def get_tags():
+        '''
+        GET will retrieve a list of tagss
+    
+        '''
+        response = Response() 
+
+        if g_config["tag_list"]:
+            print(g_config["tag_list"])
+            print(type(g_config["tag_list"]))
+            return g_config["tag_list"]
+        else:
+            response.status_code = 400
+            response.headers["Error"] = "No data in config"
+            return response
+
 
 
     return mongo_manager_bp, mongo

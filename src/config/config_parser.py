@@ -28,8 +28,8 @@ def get_config():
     env_vars = [
     "HOST",
     "PORT",
-    "PREFIX",
-    "DEBUG_MODE"]
+    "DEBUG_MODE",
+    "TAG_LIST"]
 
     dir_path = os.path.dirname(os.path.realpath(__file__))
     path= os.path.join(dir_path, CONFIG_FILE)
@@ -47,11 +47,11 @@ def get_config():
     else:
         for env_var in env_vars:
             if "true" in os.environ[env_var].replace('"', ''):
-                g_config[env_var_config.lower()] = True
+                g_config[env_var.lower()] = True
             elif "false" in os.environ[env_var].replace('"', ''):
-                g_config[env_var_config.lower()] = False
+                g_config[env_var.lower()] = False
             else:
-                g_config[env_var_config.lower()] = os.environ[env_var].replace('"', '')
+                g_config[env_var.lower()] = os.environ[env_var].replace('"', '')
 
     save_config(path, g_config)
     return g_config

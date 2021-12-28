@@ -7,6 +7,11 @@ global:
   port: 5567
   debugMode: "'true'"
 
+configMap:
+  tagList: -|
+    [ 'Costumbres', 'Vestimenta', 'Recetas', 'Postres', 'Utensilios', 'Juegos', 'Religion', 'Eventos', 'Guisos', 'Agricultura', 'Folclore', 'Fiestas', 'Cuentos', 'Arquitectura', 'Ganaderia', 'Sociedad', 'Abastecimiento', 'Pesca']
+
+
 ports:
   http-manager:
     port: 5567
@@ -28,7 +33,7 @@ requests:
 
 image: 
   imagePullPolicy: Never
-  image: alvi:latest
+  image: alvlstorage:v0.3
 persistence: 
   accessModes: ReadWriteMany
   dbStorageSize: 5Gi
