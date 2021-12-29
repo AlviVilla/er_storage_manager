@@ -87,9 +87,7 @@ def mongo_manager_bp():
         response = Response() 
 
         if g_config["tag_list"]:
-            print(g_config["tag_list"])
-            print(type(g_config["tag_list"]))
-            return g_config["tag_list"]
+            return {"tag_list": g_config["tag_list"] }
         else:
             response.status_code = 400
             response.headers["Error"] = "No data in config"

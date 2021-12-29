@@ -9,7 +9,7 @@ global:
 
 configMap:
   tagList: -|
-    [ 'Costumbres', 'Vestimenta', 'Recetas', 'Postres', 'Utensilios', 'Juegos', 'Religion', 'Eventos', 'Guisos', 'Agricultura', 'Folclore', 'Fiestas', 'Cuentos', 'Arquitectura', 'Ganaderia', 'Sociedad', 'Abastecimiento', 'Pesca']
+    [ 'Costumbres', 'Vestimenta', 'Recetas', 'Postres', 'Utensilios', 'Juegos', 'Religion', 'Eventos', 'Guisos', 'Agricultura', 'Folclore', 'Fiestas', 'Cuentos', 'Arquitectura', 'Ganaderia', 'Sociedad', 'Abastecimiento', 'Pesca' ]
 
 
 ports:
@@ -33,7 +33,7 @@ requests:
 
 image: 
   imagePullPolicy: Never
-  image: alvlstorage:v0.3
+  image: alvistorage:v0.7
 persistence: 
   accessModes: ReadWriteMany
   dbStorageSize: 5Gi

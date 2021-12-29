@@ -1,4 +1,4 @@
-from json import load, dump
+from json import load, dump, loads
 import os
 import logging
 
@@ -19,6 +19,17 @@ def load_config(path: str) -> dict:
         config = load(j)
 
     return config
+
+
+def save_config(path: str, data: dict):
+    """
+    Saves updated config file
+    """
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    path= os.path.join(dir_path, CONFIG_FILE)
+    with open(path, 'w') as j:
+        dump(data,j)
+
 
 def get_config():
 
@@ -52,18 +63,8 @@ def get_config():
                 g_config[env_var.lower()] = False
             else:
                 g_config[env_var.lower()] = os.environ[env_var].replace('"', '')
-
+    if isinstance(g_config["tag_list"], str):
+        a = loads(g_config["tag_list"][3:].replace('\'', '"'))
+        g_config["tag_list"] = a
     save_config(path, g_config)
     return g_config
-
-    
-
-
-def save_config(path: str, data: dict):
-    """
-    Saves updated config file
-    """
-    dir_path = os.path.dirname(os.path.realpath(__file__))
-    path= os.path.join(dir_path, CONFIG_FILE)
-    with open(path, 'w') as j:
-        dump(data,j)
