@@ -32,8 +32,8 @@ requests:
   dbMemory: 70Mi
 
 image: 
-  imagePullPolicy: Never
-  image: alvistorage:v0.7
+  imagePullPolicy: IfNotPresent
+  image: er_storage_manager:latest
 persistence: 
   accessModes: ReadWriteMany
   dbStorageSize: 5Gi
